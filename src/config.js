@@ -1,0 +1,1 @@
+export const apiUrl = "https://my-households-backend.herokuapp.com";

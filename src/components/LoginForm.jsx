@@ -6,6 +6,7 @@ import Joi, { schema } from "joi-browser";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../hooks/context";
+import { apiUrl } from "../config";
 // import jwtDecode from "jwt-decode";
 
 export default function LoginForm() {
@@ -66,7 +67,7 @@ export default function LoginForm() {
   };
 
   async function LoginUser({ email, password }) {
-    const response = await fetch("http://localhost:3001/api/auth", {
+    const response = await fetch(`${apiUrl}/api/auth`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

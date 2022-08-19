@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../hooks/context";
 import Input from "../common/input";
 import Joi from "joi-browser";
+import { apiUrl } from "../config";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ function SignupForm() {
   async function registerUser({ FirstName, LastName, email, password }) {
     const errors = validate();
     // console.log(errors);
-    const response = await fetch("http://localhost:3001/api/users", {
+    const response = await fetch(`${apiUrl}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
