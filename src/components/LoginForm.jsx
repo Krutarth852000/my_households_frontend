@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../hooks/context";
 import { apiUrl } from "../config";
+import { loginUser } from "../services/authServics";
 // import jwtDecode from "jwt-decode";
 
 export default function LoginForm() {
@@ -33,7 +34,7 @@ export default function LoginForm() {
 
   const validate = () => {
     const result = Joi.validate(account, schema, { abortEarly: false });
-    console.log(result);
+    // console.log(result);
     if (!result.error) return null;
     const errors = {};
     for (let item of result.error.details) errors[item.path[0]] = item.message;
@@ -44,7 +45,7 @@ export default function LoginForm() {
     event.preventDefault();
     const errors = validate();
     setErrors(errors);
-    console.log(errors);
+    // console.log(errors);
     if (errors) return errors;
     LoginUser(account);
   };
@@ -67,19 +68,23 @@ export default function LoginForm() {
   };
 
   async function LoginUser({ email, password }) {
-    const response = await fetch(`${apiUrl}/api/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    const data= await loginUser({
+      email: email,
+      password:password
+    })
+    //   await fetch(`${apiUrl}/api/auth`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // });
 
-    const data = await response.json();
+    // const data = await response.json();
     if (data.user) {
       localStorage.setItem("token", data.user);
       window.location.href = "/";
@@ -87,7 +92,7 @@ export default function LoginForm() {
       alert("please check your credentials");
       console.log(data.error);
     }
-  }
+  };
 
   if (user) {
     window.location.href = "/";

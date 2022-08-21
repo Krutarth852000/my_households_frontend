@@ -8,3 +8,7 @@ export async function addGroupIdToUserAccount(userId, groupId) {
   const result = await httpService.put(`${apiUrl}/api/users/${userId}/${groupId}`);
   return result.data;
 }
+export async function createUser(data) {
+  const result = await httpService.post(`${apiUrl}/api/users`, data);
+  return result.data;
+}

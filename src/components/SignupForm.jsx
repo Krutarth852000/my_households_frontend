@@ -7,6 +7,7 @@ import { AuthContext } from "../hooks/context";
 import Input from "../common/input";
 import Joi from "joi-browser";
 import { apiUrl } from "../config";
+import { createUser } from "../services/userServise";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -85,22 +86,28 @@ function SignupForm() {
     return result.error ? result.error.details[0].message : null;
   };
 
-  async function registerUser({ FirstName, LastName, email, password }) {
+  async function registerUser ({ FirstName, LastName, email, password }) {
     const errors = validate();
     // console.log(errors);
-    const response = await fetch(`${apiUrl}/api/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        FirstName,
-        LastName,
-        email,
-        password,
-      }),
+    const data = await createUser({
+      FirstName: FirstName,
+      LastName: LastName,
+      email: email,
+      password: password,
     });
-    const data = await response.json();
+    //   await fetch(`${apiUrl}/api/users`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     FirstName,
+    //     LastName,
+    //     email,
+    //     password,
+    //   }),
+    // });
+    // const data = await response.json();
     if (data.status === "ok") {
       localStorage.setItem("token", data.user);
       //login({ token: data.user });
