@@ -28,3 +28,7 @@ export async function deleteMember(groupId, memberId) {
   const result = await httpService.delete(`${apiUrl}/api/group/${groupId}/member/${memberId}`);
   return result;
 }
+export async function deleteGroup(groupId) {
+  const result = await httpService.delete(`${apiUrl}/api/group/${groupId}`);
+  return result.data;
+}

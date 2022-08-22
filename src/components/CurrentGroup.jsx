@@ -3,6 +3,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { IoMdAdd } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import CreateList from "../common/createList";
+import MyModal from "../common/modal";
 import {
   addMembers,
   deleteMember,
@@ -17,6 +18,7 @@ export default function CurrentGroup() {
   const [member, setNewMember] = useState();
   const [foundUser, setFoundUser] = useState(false);
   const [searchedUser, setSearchedUser] = useState();
+
   const [list, setList] = useState([]);
 
   let { groupId } = useParams();
@@ -93,29 +95,13 @@ export default function CurrentGroup() {
         <div className="flex flex-row w-full justify-between text-center">
           <h2 className="flex capitalize font-bold text-6xl">
             {data.GroupName}
-          </h2>
-          {/* <div className="flex justify-center place-items-center h-auto mb-2 cursor-pointer px-2  text-white bg-blue-500 hover:bg-blue-700 text-center mt-3 mr-2 "> */}
+          </h2>{" "}
           <Link
             to={`/expense/${data._id}`}
             className="flex my-2  place-items-center justify-center cursor-pointer px-2  text-white bg-blue-500 hover:bg-blue-700 text-center  decoration-inherit no-underline"
           >
             <button className="text-xl ">+ Add Expense</button>
           </Link>
-          {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg> */}
-          {/* </div> */}
         </div>
         <hr className="border-3 border-slate-900 mt-0 w-full" />
         <div className="flex flex-row w-full">
@@ -228,6 +214,9 @@ export default function CurrentGroup() {
               >
                 SAVE MEMBERS
               </button>
+            </div>
+            <div className="w-full mt-3 h-28 border-dotted border-red-600 border-4 p-2">
+              <MyModal groupId={groupId} />
             </div>
           </div>
         </div>
