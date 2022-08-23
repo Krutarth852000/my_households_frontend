@@ -39,6 +39,7 @@ export default function Active() {
         <tbody>
           {response &&
             Object.keys(response).map((item, i) => {
+              // console.log(response[item].membersBalance);
               return (
                 <tr key={response[item]._id} className="h-10 border-b-2">
                   <td className="w-auto px-4">{response[item].description}</td>
@@ -56,7 +57,7 @@ export default function Active() {
                         {
                           response[item].membersBalance.find(
                             (member) => user._id === member.memberId
-                          ).balance
+                          )?.balance
                         }
                       </td>
                     </>
@@ -70,7 +71,7 @@ export default function Active() {
                         {
                           response[item].membersBalance.find(
                             (member) => user._id === member.memberId
-                          ).balance
+                          )?.balance
                         }
                       </td>
                     </>
@@ -82,7 +83,7 @@ export default function Active() {
                     </button>
                   </td>
                   <td className="w-auto">
-                    <button className="p-1 px-3 rounded-sm border-3 border-red-700 bg-red-400 hover:bg-red-500">
+                    <button className="p-1 px-3 rounded-sm border-3 text-white border-red-700 bg-red-400 hover:bg-red-500">
                       Delete
                     </button>
                   </td>
