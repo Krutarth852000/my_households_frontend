@@ -40,8 +40,8 @@ function SignupForm() {
   });
 
   const schema = {
-    FirstName: Joi.string().required().label("FirstName"),
-    LastName: Joi.string().required().label("LastName"),
+    FirstName: Joi.string().min(5).max(50).required().label("FirstName"),
+    LastName: Joi.string().min(5).max(50).required().label("LastName"),
     email: Joi.string()
       .required()
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
@@ -86,7 +86,7 @@ function SignupForm() {
     return result.error ? result.error.details[0].message : null;
   };
 
-  async function registerUser ({ FirstName, LastName, email, password }) {
+  async function registerUser({ FirstName, LastName, email, password }) {
     const errors = validate();
     // console.log(errors);
     const data = await createUser({
